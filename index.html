@@ -7,17 +7,83 @@
 <title>Inauguratie Countdown</title>
 
 <style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b
+    );
+
+    color: white;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    letter-spacing: 6px;
+    margin-bottom: 10px;
+}
+
+.date {
+    color: #64748b;
+    margin-bottom: 50px;
+    font-size: 1rem;
+}
+
+.clock {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.box {
+    width: 160px;
+    background: #111827;
+    border-radius: 18px;
+    padding: 25px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.45),
+        inset 0 1px 1px rgba(255,255,255,.08);
+}
+
 .number {
     font-size: 4rem;
     font-weight: bold;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .flip {
-    animation: flip 0.4s ease;
+    animation: flipAnimation 0.4s ease;
 }
 
-@keyframes flip {
+@keyframes flipAnimation {
 
     0% {
         transform: rotateX(0deg);
@@ -32,6 +98,34 @@
     }
 
 }
+
+.label {
+    margin-top: 12px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@media (max-width:768px) {
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        letter-spacing: 2px;
+    }
+
+    .box {
+        width: 110px;
+        padding: 15px;
+    }
+
+    .number {
+        font-size: 2.2rem;
+    }
+}
+
 </style>
 
 </head>
@@ -79,6 +173,26 @@
 
 const targetDate = new Date(2026, 11, 17, 8, 0, 0);
 
+function updateNumber(id, value) {
+
+    const element = document.getElementById(id);
+    const newValue = String(value);
+
+    if (element.textContent !== newValue) {
+
+        element.classList.add("flip");
+
+        setTimeout(() => {
+            element.textContent = newValue;
+        }, 150);
+
+        setTimeout(() => {
+            element.classList.remove("flip");
+        }, 400);
+
+    }
+}
+
 function updateCountdown() {
 
     const now = new Date();
@@ -105,17 +219,10 @@ function updateCountdown() {
     const seconds =
         Math.floor((diff / 1000) % 60);
 
-    document.getElementById("days").textContent =
-        days;
-
-    document.getElementById("hours").textContent =
-        String(hours).padStart(2, "0");
-
-    document.getElementById("minutes").textContent =
-        String(minutes).padStart(2, "0");
-
-    document.getElementById("seconds").textContent =
-        String(seconds).padStart(2, "0");
+    updateNumber("days", days);
+    updateNumber("hours", String(hours).padStart(2, "0"));
+    updateNumber("minutes", String(minutes).padStart(2, "0"));
+    updateNumber("seconds", String(seconds).padStart(2, "0"));
 }
 
 updateCountdown();
@@ -125,4 +232,3 @@ setInterval(updateCountdown, 1000);
 
 </body>
 </html>
-``
