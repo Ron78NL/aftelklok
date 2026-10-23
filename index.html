@@ -37,15 +37,22 @@ body {
 }
 
 h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
     margin-bottom: 10px;
+    font-weight: 700;
 }
 
 .subtitle {
     font-size: 1.2rem;
     color: #94a3b8;
     letter-spacing: 6px;
+    margin-bottom: 10px;
+}
+
+.date {
+    color: #64748b;
     margin-bottom: 50px;
+    font-size: 1rem;
 }
 
 .clock {
@@ -60,6 +67,7 @@ h1 {
     background: #111827;
     border-radius: 18px;
     padding: 25px;
+
     box-shadow:
         0 10px 30px rgba(0,0,0,.45),
         inset 0 1px 1px rgba(255,255,255,.08);
@@ -71,7 +79,7 @@ h1 {
 }
 
 .label {
-    margin-top: 10px;
+    margin-top: 12px;
     color: #94a3b8;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -83,6 +91,10 @@ h1 {
         font-size: 2rem;
     }
 
+    .subtitle {
+        letter-spacing: 2px;
+    }
+
     .box {
         width: 110px;
         padding: 15px;
@@ -91,11 +103,6 @@ h1 {
     .number {
         font-size: 2.2rem;
     }
-
-    .subtitle {
-        letter-spacing: 2px;
-    }
-
 }
 
 </style>
@@ -109,6 +116,10 @@ h1 {
 
     <div class="subtitle">
         EVO 321
+    </div>
+
+    <div class="date">
+        17 december 2026 - 08:00
     </div>
 
     <div class="clock">
@@ -144,6 +155,7 @@ const targetDate = new Date(2026, 11, 17, 8, 0, 0);
 function updateCountdown() {
 
     const now = new Date();
+
     const diff = targetDate.getTime() - now.getTime();
 
     if (diff <= 0) {
@@ -186,3 +198,4 @@ setInterval(updateCountdown, 1000);
 
 </body>
 </html>
+``
