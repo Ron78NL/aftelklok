@@ -1,1 +1,188 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Inauguratie Countdown</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b
+    );
+
+    color: white;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    letter-spacing: 6px;
+    margin-bottom: 50px;
+}
+
+.clock {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.box {
+    width: 160px;
+    background: #111827;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.45),
+        inset 0 1px 1px rgba(255,255,255,.08);
+}
+
+.number {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.label {
+    margin-top: 10px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@media (max-width:768px) {
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .box {
+        width: 110px;
+        padding: 15px;
+    }
+
+    .number {
+        font-size: 2.2rem;
+    }
+
+    .subtitle {
+        letter-spacing: 2px;
+    }
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Inauguratie Countdown</h1>
+
+    <div class="subtitle">
+        EVO 321
+    </div>
+
+    <div class="clock">
+
+        <div class="box">
+            <div id="days" class="number">0</div>
+            <div class="label">Dagen</div>
+        </div>
+
+        <div class="box">
+            <div id="hours" class="number">0</div>
+            <div class="label">Uren</div>
+        </div>
+
+        <div class="box">
+            <div id="minutes" class="number">0</div>
+            <div class="label">Minuten</div>
+        </div>
+
+        <div class="box">
+            <div id="seconds" class="number">0</div>
+            <div class="label">Seconden</div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const targetDate = new Date(2026, 11, 17, 8, 0, 0);
+
+function updateCountdown() {
+
+    const now = new Date();
+    const diff = targetDate.getTime() - now.getTime();
+
+    if (diff <= 0) {
+
+        document.querySelector(".container").innerHTML =
+            "<h1>Inauguratie gestart</h1>";
+
+        return;
+    }
+
+    const days =
+        Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    const hours =
+        Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+    const minutes =
+        Math.floor((diff / (1000 * 60)) % 60);
+
+    const seconds =
+        Math.floor((diff / 1000) % 60);
+
+    document.getElementById("days").textContent =
+        days;
+
+    document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+</script>
+
+</body>
+</html>
